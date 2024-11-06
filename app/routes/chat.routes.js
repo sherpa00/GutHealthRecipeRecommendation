@@ -9,7 +9,8 @@ router.get("/", (req, res) => {
   });
 });
 
-router.get("/chat", async (req, res) => {
+// route for recipe chat
+router.post("/chat", async (req, res) => {
   const { userMessage } = req.body;
 
   const chat = await ChatController(userMessage);

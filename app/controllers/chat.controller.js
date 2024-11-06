@@ -44,8 +44,15 @@ const ChatController = async (userInput) => {
         content:
           "You are a helpful assistant who can recommend gut-friendly recipes.",
       });
+
       const prompt =
         "Ask the user about their gut health issue, and be friendly and conversational.";
+
+      chat_history.push({
+        role: "assistant",
+        content: prompt,
+      });
+
       try {
         // first qustion asking gut isssues
         const firstRespose = await client.chat.completions.create({
@@ -70,7 +77,7 @@ const ChatController = async (userInput) => {
     }
 
     // after getting gut issues, ask for food preferences
-    else if (chat_history.length == 2) {
+    else if (chat_history.length == 4) {
       chat_history.push({
         role: "system",
         content:
@@ -78,6 +85,11 @@ const ChatController = async (userInput) => {
       });
       const prompt =
         "Ask the user about their food preferences, such as vegetarian, dairy-free, Nepalese food etc.";
+
+      chat_history.push({
+        role: "assistant",
+        content: prompt,
+      });
       try {
         // first qustion asking gut isssues
         const secondRequest = await client.chat.completions.create({
@@ -102,7 +114,7 @@ const ChatController = async (userInput) => {
     }
 
     // now ask for ingredients available
-    else if (chat_history.length == 3) {
+    else if (chat_history.length == 7) {
       chat_history.push({
         role: "system",
         content:
@@ -110,6 +122,11 @@ const ChatController = async (userInput) => {
       });
       const prompt =
         "Ask the user about the ingredients they have on hand for the recipe.";
+
+      chat_history.push({
+        role: "assistant",
+        content: prompt,
+      });
       try {
         // first qustion asking gut isssues
         const thirdRequest = await client.chat.completions.create({
@@ -134,10 +151,10 @@ const ChatController = async (userInput) => {
     }
 
     // finaly after all required questions, prepare a recipe
-    else if (chat_history.length === 4) {
+    else if (chat_history.length === 10) {
       const gutIssue = chat_history[1].content;
-      const foodPreferences = chat_history[2].content;
-      const ingredients = userMessage; // assume that user sends at the final message
+      const foodPreferences = chat_history[7].content;
+      const ingredients = chat_history[11]; // assume that user sends at the final message
 
       const prompt = `
         Given the user's gut health issue: ${gutIssue},
@@ -146,20 +163,18 @@ const ChatController = async (userInput) => {
         create a detailed recipe suggestion that is gut-friendly and fits these criteria.
       `;
 
+      chat_history.push({
+        role: "assistant",
+        content: prompt,
+      });
+
       try {
         const finalResponse = await client.chat.completions.create({
-          messages: [
-            ...chat_history,
-            {
-              role: "user",
-              content: userInput, // ingredients
-            },
-          ],
+          messages: [...chat_history],
           model: "",
         });
 
         const recipeSuggestion = finalResponse.choices[0].message.content;
-        chat_history.push({ role: "assistant", content: recipeSuggestion });
 
         return {
           success: true,

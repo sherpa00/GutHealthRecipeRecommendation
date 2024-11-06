@@ -7,7 +7,6 @@
 Here're some of the project's best features:
 
 - recommends food recipes catered to users's specific gut health issues
-- gives valuable information about the food items and recipes
 - incorporates any food choices users desires like spicy foods Nepalese foods etc
 
 ## Environment Variables
