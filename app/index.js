@@ -1,5 +1,5 @@
 const express = require("express");
-const router = require("./routes/index.js");
+const chatRouter = require("./routes/chat.routes.js");
 
 // application instance
 const app = express();
@@ -13,6 +13,6 @@ app.use(
 app.use(express.json());
 
 // routes usage
-app.use("/api", router);
+app.use("/api", chatRouter);
 
 module.exports = app;

@@ -10,10 +10,44 @@ Here're some of the project's best features:
 - gives valuable information about the food items and recipes
 - incorporates any food choices users desires like spicy foods Nepalese foods etc
 
-<h2>💻 Built with</h2>
+## Environment Variables
 
-Technologies used in the project:
+To run this project, you will need to add the following environment variables to your .env file
 
-- javascript
-- nodejs
-- Azure OpenApi
+`PORT`
+
+`AZURE_OPENAI_API_KEY`
+
+`AZURE_OPENAI_ENDPOINT`
+
+`OPENAI_API_DEPLOYMENT`
+
+`OPENAI_API_VERSION`
+
+<h2> Run Locally </h2>
+
+## Installation
+
+- Clone Github project
+
+```bash
+  git clone ${project_github_link}
+```
+
+- create .env firle and add necesary Environment variables
+
+```bash
+  touch .env
+```
+
+- Install dependencies
+
+```bash
+  npm install
+```
+
+- start the server
+
+```bash
+  npm start
+```

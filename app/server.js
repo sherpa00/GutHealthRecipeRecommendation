@@ -1,5 +1,9 @@
-const PORT = require("./configs/env_vars.js");
+const dotenv = require("dotenv");
 const app = require("./index.js");
+
+dotenv.config();
+
+const PORT = process.env.PORT;
 
 // application server
 app.listen(PORT, () => {
